@@ -6,7 +6,11 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Service
 public class SessionServiceClient {
 
-    private final WebClient webClient = WebClient.create("http://localhost:8081");
+    private final WebClient webClient;
+
+    public SessionServiceClient(WebClient.Builder webClientBuilder) {
+        this.webClient = webClientBuilder.baseUrl("http://SESSION-SERVICE").build();
+    }
 
 
     private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(SessionServiceClient.class);
