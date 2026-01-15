@@ -14,9 +14,20 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @EnableRedisRepositories
 public class RedisConfig {
 
-    @Bean // It creates a connection to your Redis server
+    @org.springframework.beans.factory.annotation.Value("${spring.redis.host}")
+    private String redisHost;
+
+    @org.springframework.beans.factory.annotation.Value("${spring.redis.port}")
+    private int redisPort;
+
+    @org.springframework.beans.factory.annotation.Value("${spring.redis.password}")
+    private String redisPassword;
+
+    @Bean
     public RedisConnectionFactory redisConnectionFactory() {
-        return new LettuceConnectionFactory("localhost", 6379);
+        org.springframework.data.redis.connection.RedisStandaloneConfiguration config = new org.springframework.data.redis.connection.RedisStandaloneConfiguration(redisHost, redisPort);
+        config.setPassword(redisPassword);
+        return new LettuceConnectionFactory(config);
     }
 
     @Bean
