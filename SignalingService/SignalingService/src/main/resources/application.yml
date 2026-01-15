@@ -12,6 +12,9 @@ eureka:
       defaultZone: "${EUREKA_URI:http://localhost:8761/eureka}"
     register-with-eureka: true
     fetch-registry: true
+  instance:
+    hostname: signaling-service.railway.internal
+    prefer-ip-address: false
 
 jwt:
   secret: "${JWT_SECRET:woidw0-9waj-9dawidnaiwndianidanipdnandianipdnapawdaopwndpawnd}"
