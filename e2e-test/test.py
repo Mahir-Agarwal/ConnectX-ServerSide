@@ -5,9 +5,9 @@ import json
 import sys
 
 # CONFIGURATION
-BASE_URL = "http://localhost:8080"
-EUREKA_URL = "http://localhost:8761/eureka"
-WS_URL = "ws://localhost:8080/ws"  # Gateway WS URL
+BASE_URL = "https://api-gateway-production-7e97.up.railway.app"
+EUREKA_URL = "https://eureka-server-production-f123.up.railway.app/eureka" # Placeholder, update if you have the eureka public url
+WS_URL = "wss://api-gateway-production-7e97.up.railway.app/ws"  # Gateway WS URL (WSS for Secure WebSocket)
 
 def print_result(name, success, message=""):
     if success:
