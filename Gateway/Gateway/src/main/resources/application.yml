@@ -1,0 +1,53 @@
+server:
+  port: 8080
+  address: 0.0.0.0
+
+
+spring:
+  application:
+    name: api-gateway
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
+    password: ${REDIS_PASSWORD:}
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
+      routes:
+
+        - id: session-service-route
+          uri: lb://session-service
+          predicates:
+            - Path=/api/sessions/**
+          filters:
+            - StripPrefix=1
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 5
+                redis-rate-limiter.burstCapacity: 10
+                key-resolver: "#{@ipKeyResolver}"
+
+        - id: signaling-websocket-route
+          uri: lb://signaling-service
+          predicates:
+            - Path=/ws/**
+          filters:
+            - name: RewritePath
+              args:
+                regexp: "/ws/(?<segment>.*)"
+                replacement: "/ws/${segment}"
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 3
+                redis-rate-limiter.burstCapacity: 6
+                key-resolver: "#{@ipKeyResolver}"
+
+eureka:
+  client:
+    service-url:
+      defaultZone: "${EUREKA_URI:http://localhost:8761/eureka}"
