@@ -29,7 +29,7 @@
 
 ## 📖 Overview
 
-**ConnectX** is a secure platform engineered to create limited-time sessions, enabling end-to-end encrypted direct peer connections via WebRTC. It removes the need for storing user files on the server directly—behaving purely as a dynamic "switchboard operator".
+**ConnectX** is a secure platform engineered to create limited-time sessions, enabling end-to-end encrypted direct peer connections via WebRTC. It removes the need for storing user files on the server directly behaving purely as a dynamic "switchboard operator".
 
 This backend is structured using a **Spring Boot Microservices Architecture**, broken down into specific boundary contexts: API Gateway routing, Service Registry, Session Management, and WebSocket Signaling.
 
