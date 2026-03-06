@@ -11,9 +11,9 @@ WS_URL = "wss://committable-chong-desperately.ngrok-free.dev/ws"  # Ngrok uses h
 
 def print_result(name, success, message=""):
     if success:
-        print(f"✅ [PASS] {name} {message}")
+        print(f" [PASS] {name} {message}")
     else:
-        print(f"❌ [FAIL] {name} - {message}")
+        print(f" [FAIL] {name} - {message}")
         sys.exit(1)
 
 def test_http_endpoints():
@@ -158,14 +158,14 @@ async def test_websockets(session_data):
         print_result("WebSocket Test", False, str(e))
 
 async def main():
-    print("🚀 Starting Backend E2E Test...")
+    print(" Starting Backend E2E Test...")
     session_data = test_http_endpoints()
     
     if session_data:
         await test_websockets(session_data)
-        print("\n✅ ALL TESTS PASSED SUCCESSFULLY!")
+        print("\n ALL TESTS PASSED SUCCESSFULLY!")
     else:
-        print("\n❌ SKIPPING WEBSOCKET TESTS DUE TO HTTP FAILURE")
+        print("\n SKIPPING WEBSOCKET TESTS DUE TO HTTP FAILURE")
 
 if __name__ == "__main__":
     asyncio.run(main())

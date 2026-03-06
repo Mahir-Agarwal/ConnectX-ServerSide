@@ -1,10 +1,10 @@
-# 📘 The ConnectX Backend Guide (For Future Tech Wizards)
+#  The ConnectX Backend Guide (For Future Tech Wizards)
 
 Welcome! Imagine we are building a **Super Smart School** called **ConnectX**. This document will teach you exactly how this school works, who works there, and how they talk to each other.
 
 ---
 
-## 🏗️ The Big Picture: Our School (Microservices Architecture)
+##  The Big Picture: Our School (Microservices Architecture)
 
 Our backend isn't just one big giant robot; it's a team of smaller, specialized robots working together. This is called **Microservices**.
 
@@ -28,7 +28,7 @@ Our backend isn't just one big giant robot; it's a team of smaller, specialized 
 
 ---
 
-## 🔍 Deep Dive: The Session Service (The Star of the Show)
+##  Deep Dive: The Session Service (The Star of the Show)
 
 Let's look inside the **Session Service**. This is where the magic happens for creating connections.
 
@@ -62,7 +62,7 @@ Let's look inside the **Session Service**. This is where the magic happens for c
 
 ---
 
-## � Deep Dive: The Signaling Service (The Messenger)
+## Deep Dive: The Signaling Service (The Messenger)
 
 This robot helps the Sender and Receiver talk to each other to set up their direct line (WebRTC). It doesn't see the video or files; it just passes the setup notes.
 
@@ -93,7 +93,7 @@ This robot helps the Sender and Receiver talk to each other to set up their dire
 
 ---
 
-## �📜 The Rule Book: `application.yml` Explained
+## The Rule Book: `application.yml` Explained
 
 This file is like the **Instruction Manual** for the robot. It tells the robot how to behave when it wakes up.
 
@@ -115,7 +115,7 @@ eureka:
 
 ---
 
-## 🛠️ Why This Tech? (The "Why Not That?" Section)
+##  Why This Tech? (The "Why Not That?" Section)
 
 ### 1. **Redis** (The Database)
 *   **What we use:** Redis (In-Memory Database).
@@ -136,7 +136,7 @@ eureka:
 
 ---
 
-## 🗣️ How Services Talk (Communication)
+##  How Services Talk (Communication)
 
 1.  **User -> Gateway**: User knocks on the door (Port 8080).
 2.  **Gateway -> SessionService**: Gateway looks at the address (`/sessions`) and sends it to SessionService.
@@ -146,7 +146,7 @@ eureka:
 
 ---
 
-## 🎓 Top 10 Interview Questions
+##  Top 10 Interview Questions
 
 1.  **Q: What is the difference between `@Controller` and `@RestController` in Spring Boot?**
     *   **A:** `@Controller` returns Views (HTML pages), while `@RestController` returns Data (JSON/XML). We use `@RestController` for our backend APIs.

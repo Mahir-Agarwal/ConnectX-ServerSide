@@ -95,7 +95,7 @@ public class SignalingWebSocketHandler extends TextWebSocketHandler {
         session.getAttributes().put("role", role);
         session.getAttributes().put("sessionId", sessionId);
 
-        log.info("WS authenticated → role: {}, session: {}, wsId: {}", role, sessionId, session.getId());
+        log.info("WS authenticated  role: {}, session: {}, wsId: {}", role, sessionId, session.getId());
     }
 
     // -------------------------------------------

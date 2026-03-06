@@ -36,8 +36,8 @@ public class RedisConfig {
 
         template.setConnectionFactory(connectionFactory);
 
-        //Redis stores everything as bytes —
-        //so we must define how keys and values convert between Java objects ⇆ Redis bytes.
+        //Redis stores everything as bytes 
+        //so we must define how keys and values convert between Java objects  Redis bytes.
 
         // key serializer
         template.setKeySerializer(new StringRedisSerializer());

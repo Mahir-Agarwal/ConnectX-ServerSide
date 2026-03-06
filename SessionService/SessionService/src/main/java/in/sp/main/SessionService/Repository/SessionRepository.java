@@ -41,13 +41,13 @@ public class SessionRepository {
     }
 
 
-    // ⭐ NEW: Get all session keys
+    //  NEW: Get all session keys
     public Set<String> getAllSessionKeys() {
         return redisTemplate.keys(PREFIX + "*");
     }
 
 
-    // ⭐ NEW: Find all sessions
+    //  NEW: Find all sessions
     public List<SessionEntity> findAll() {
 
         Set<String> keys = getAllSessionKeys();
