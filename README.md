@@ -222,12 +222,3 @@ m:\ConnectX
     <sub> Engineered and Developed by <a href="https://github.com/Mahir-Agarwal">Mahir Agarwal</a></sub>
   </p>
 </div>
-
-<!-- GitHub Stats Widgets -->
-<div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=Mahir-Agarwal&show_icons=true&theme=radical&hide_border=true&bg_color=0D1117" alt="Mahir-Agarwal's GitHub Stats"/>
-</div>
-
-<div align="center">
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Mahir-Agarwal&layout=compact&theme=radical&hide_border=true&bg_color=0D1117" alt="Top Languages"/>
-</div>
