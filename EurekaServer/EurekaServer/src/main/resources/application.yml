@@ -8,5 +8,10 @@ server:
 
 eureka:
   client:
-    register-with-eureka: false
+    register-with-eureka: false # Server doesn't register with itself
     fetch-registry: false
+    service-url:
+      defaultZone: http://192.168.29.245:8761/eureka/
+  instance:
+    hostname: 192.168.29.245
+    prefer-ip-address: true

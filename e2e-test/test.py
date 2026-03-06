@@ -5,9 +5,9 @@ import json
 import sys
 
 # CONFIGURATION
-BASE_URL = "https://api-gateway-production-7e97.up.railway.app"
-EUREKA_URL = "https://eureka-server-production-f123.up.railway.app/eureka" # Placeholder, update if you have the eureka public url
-WS_URL = "wss://api-gateway-production-7e97.up.railway.app/ws"  # Gateway WS URL (WSS for Secure WebSocket)
+BASE_URL = "https://committable-chong-desperately.ngrok-free.dev"
+EUREKA_URL = "https://committable-chong-desperately.ngrok-free.dev/eureka" # Usually not exposed, but for reference
+WS_URL = "wss://committable-chong-desperately.ngrok-free.dev/ws"  # Ngrok uses https/wss
 
 def print_result(name, success, message=""):
     if success:
@@ -67,6 +67,37 @@ def test_http_endpoints():
 
     except Exception as e:
         print_result("Validate Session", False, str(e))
+        
+    except Exception as e:
+        print_result("Validate Session", False, str(e))
+
+    # 4. Get TURN Credentials
+    try:
+        url = f"{BASE_URL}/api/turn-credentials" # Note: This might need port 8082 if SignalingService is separate, but Gateway maps it.
+        # Assuming Gateway maps /api/turn-credentials via SignalingService or it's accessible.
+        # Wait, usually SignalingService is on a different port or mapped via Gateway. 
+        # Checking test.py CONFIGURATION: BASE_URL = "http://10.143.245.98:8080" (Gateway?)
+        
+        # If /api/turn-credentials is in SignalingService, we need to ensure Gateway routes it.
+        # The prompt implies we put it in SignalingService.
+        # Let's assume the Gateway routes /api/* to the appropriate services or we might need to hit Signaling directly if Gateway isn't configured for this new route yet.
+        # However, for this test, we'll try the BASE_URL.
+        
+        print(f"Sending GET to {url}...")
+        resp = requests.get(url)
+        
+        if resp.status_code == 200:
+            data = resp.json()
+            if "iceServers" in data and len(data["iceServers"]) > 0:
+                policy = data.get("iceTransportPolicy", "missing")
+                print_result("Get TURN Crede", True, f"Servers: {len(data['iceServers'])}, Policy: {policy}")
+            else:
+                print_result("Get TURN Crede", False, f"Invalid format: {data}")
+        else:
+            print_result("Get TURN Crede", False, f"Status: {resp.status_code} (Ensure Gateway routes this or use Service Port)")
+
+    except Exception as e:
+        print_result("Get TURN Crede", False, str(e))
         
     return session_data
 

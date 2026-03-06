@@ -47,7 +47,16 @@ spring:
                 redis-rate-limiter.burstCapacity: 6
                 key-resolver: "#{@ipKeyResolver}"
 
+        - id: signaling-turn-route
+          uri: lb://signaling-service
+          predicates:
+            - Path=/api/turn-credentials
+
+
 eureka:
   client:
     service-url:
-      defaultZone: "${EUREKA_URI:http://localhost:8761/eureka}"
+      defaultZone: "${EUREKA_URI:http://192.168.29.245:8761/eureka}"
+  instance:
+    hostname: 192.168.29.245
+    prefer-ip-address: true
