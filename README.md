@@ -35,6 +35,42 @@ This backend is structured using a **Spring Boot Microservices Architecture**, b
 
 ---
 
+
+## 🌍 ConnectX Client Applications
+
+While this repository contains the **core backend microservices infrastructure**, the complete ConnectX ecosystem includes two client applications that interact with this backend to enable real-time peer-to-peer file transfers.
+
+<p align="center">
+
+<a href="https://github.com/Mahir-Agarwal/ConnectX-Web-Client">
+<img src="https://img.shields.io/badge/ConnectX-Web_Client-000000?style=for-the-badge&logo=googlechrome&logoColor=white"/>
+</a>
+
+<a href="https://github.com/Mahir-Agarwal/ConnectX-Android-Client">
+<img src="https://img.shields.io/badge/ConnectX-Android_Client-3DDC84?style=for-the-badge&logo=android&logoColor=white"/>
+</a>
+
+</p>
+
+| Platform | Description | Repository |
+|--------|-------------|-----------|
+| 🌐 **Web Client** | Browser-based interface for generating sessions and sending files using **WebRTC DataChannels** | https://github.com/Mahir-Agarwal/ConnectX-Web-Client |
+| 📱 **Android Client** | Native Android application used to **scan QR codes and receive files in real time** | https://github.com/Mahir-Agarwal/ConnectX-Android-Client |
+
+### 🔗 How They Connect
+
+The clients communicate with this backend using the following flow:
+
+1. **Web Client** creates a session using the backend API.
+2. **Android Client** scans the generated QR code containing the session token.
+3. Both clients establish a **WebSocket signaling connection** through the backend.
+4. The backend brokers the **WebRTC handshake** (`OFFER`, `ANSWER`, `ICE_CANDIDATES`).
+5. Once negotiated, files are transferred **directly peer-to-peer (P2P)** without touching the server.
+
+This architecture ensures **maximum privacy, minimal latency, and no server-side file storage**.
+
+--- 
+
 ## 🗺️ Project Status & Roadmap
 
 > **Current Status**: ✅ Core Backend Complete (Local/Network Tested)
