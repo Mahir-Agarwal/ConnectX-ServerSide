@@ -70,6 +70,41 @@ The clients communicate with this backend using the following flow:
 This architecture ensures **maximum privacy, minimal latency, and no server-side file storage**.
 
 --- 
+## 🧠 The Architecture: Microservices Flow
+
+ConnectX functions via independent services talking dynamically to one another. 
+
+### 1. The Gateway (`8080`)
+Acts as the **School Gatekeeper**. Directs `/api/sessions/**` to the Session Service and `/ws/**` to the Signaling Service.
+
+### 2. The Eureka Server (`8761`)
+Acts as the **Phonebook**. Services boot up and say "I am here", allowing the Gateway and other services to find them dynamically without hardcoded IPs.
+
+### 3. The Session Service (`8081`)
+Acts as the **Room Manager**. Uses Redis to create JSON session entities holding an ID, limits, and expiration times. Issues the JWTs.
+
+### 4. The Signaling Service (`8082`)
+Acts as the **Switchboard Operator**. Holds active WebSocket lines. It validates users via JWT and checks with the Session Service if the room exists before brokering WebRTC data.
+
+### 🔄 System Design Flow
+```mermaid
+graph TD
+    Client[Mobile/Web Client] -->|REST / WS| Gateway[API Gateway :8080]
+    Gateway -->|Resolves Address| Eureka[(Eureka Registry :8761)]
+    
+    Gateway -->|HTTP /sessions/| SessionService[Session Service :8081]
+    Gateway -->|WS /ws/| SignalingService[Signaling Service :8082]
+    
+    SessionService -->|Read/Write TTL| Redis[(Redis DB)]
+    SignalingService -->|REST Validation| SessionService
+    
+    subgraph "Signaling Exchange (WebRTC Setup)"
+        SignalingService -.->|Forwards| Sender[Sender Client]
+        SignalingService -.->|Forwards| Receiver[Receiver Client]
+    end
+```
+
+---
 
 ## 🗺️ Project Status & Roadmap
 
@@ -142,41 +177,7 @@ This architecture ensures **maximum privacy, minimal latency, and no server-side
 
 ---
 
-## 🧠 The Architecture: Microservices Flow
 
-ConnectX functions via independent services talking dynamically to one another. 
-
-### 1. The Gateway (`8080`)
-Acts as the **School Gatekeeper**. Directs `/api/sessions/**` to the Session Service and `/ws/**` to the Signaling Service.
-
-### 2. The Eureka Server (`8761`)
-Acts as the **Phonebook**. Services boot up and say "I am here", allowing the Gateway and other services to find them dynamically without hardcoded IPs.
-
-### 3. The Session Service (`8081`)
-Acts as the **Room Manager**. Uses Redis to create JSON session entities holding an ID, limits, and expiration times. Issues the JWTs.
-
-### 4. The Signaling Service (`8082`)
-Acts as the **Switchboard Operator**. Holds active WebSocket lines. It validates users via JWT and checks with the Session Service if the room exists before brokering WebRTC data.
-
-### 🔄 System Design Flow
-```mermaid
-graph TD
-    Client[Mobile/Web Client] -->|REST / WS| Gateway[API Gateway :8080]
-    Gateway -->|Resolves Address| Eureka[(Eureka Registry :8761)]
-    
-    Gateway -->|HTTP /sessions/| SessionService[Session Service :8081]
-    Gateway -->|WS /ws/| SignalingService[Signaling Service :8082]
-    
-    SessionService -->|Read/Write TTL| Redis[(Redis DB)]
-    SignalingService -->|REST Validation| SessionService
-    
-    subgraph "Signaling Exchange (WebRTC Setup)"
-        SignalingService -.->|Forwards| Sender[Sender Client]
-        SignalingService -.->|Forwards| Receiver[Receiver Client]
-    end
-```
-
----
 
 ## 📚 API Documentation
 
